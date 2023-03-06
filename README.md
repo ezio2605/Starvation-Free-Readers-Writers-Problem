@@ -261,6 +261,18 @@ __Suppose Second Writer tries to access the Critical Section before First Reader
 
 + As the third condition is still true ( because reading=1 ), it gets blocked and goes to waiting list.
 
+``` js
+if(reader){
+      signal(waiting);
+    }
+else if(linebreaker){
+      signal(writing);
+    }
+else if(reading){
+      wait(linebreaker);
+    }
+```
+
 __Suppose First Reader tries to access the Critical Section again__
 
 + As a Reader accesses the Reader_Process function, it first puts writing to wait and signals reading.
@@ -268,4 +280,18 @@ __Suppose First Reader tries to access the Critical Section again__
 + Then it aquires mutex and signals reader=1 to indicate that a reader is in Critical Section.
 + After finishing reading, it signals the waiting Writer to access the Critical Section.
 
+
+``` js
+wait(writing);
+signal(reading);
+if((writing||waiting)&&reading){
+      signal(linebreaker);
+      wait(writing);
+    }
+ wait(mutex);
+ signal(reader);
+
+    *******// CRITICAL SECTION //*******
+
+```
 
