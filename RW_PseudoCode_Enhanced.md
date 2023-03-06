@@ -1,3 +1,4 @@
+```js
 writing=1; //Semaphore for Writers
 reading=0; //Semaphore for Readers
 mutex=1; //Semaphore for Mutual Exclusion
@@ -77,3 +78,4 @@ Writer_Process()
         signal(mutex);
     }
 }
+```
